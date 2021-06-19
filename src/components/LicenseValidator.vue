@@ -1,0 +1,67 @@
+<template>
+  <div class="LicenseValidator">
+    <h2>
+      <small>Login</small>
+      Please enter a license key
+    </h2>
+    <form @submit.prevent="validateLicense">
+      <input
+        type="text"
+        placeholder="XXXXXX-XXXXXX-XXXXXX-XXXXXX-XXXXXX-V3"
+        v-model="key"
+        required
+      />
+      <button type="submit">Continue</button>
+    </form>
+  </div>
+</template>
+
+<script>
+import { mapActions } from "vuex";
+
+export default {
+  name: "LicenseValidator",
+  computed: {
+    key: {
+      get() {
+        return this.$store.state.key;
+      },
+      set(value) {
+        this.$store.commit("SET_KEY", value);
+      },
+    },
+  },
+  methods: {
+    ...mapActions(["validateLicenseKey", "setKey"]),
+    validateLicense() {
+      this.validateLicenseKey();
+    },
+    updateKey(key) {
+      this.setKey(key);
+    },
+  },
+};
+</script>
+
+<style scoped>
+.LicenseValidator {
+  position: relative;
+  width: 100%;
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: #fff;
+  border: 1px solid #edeff3;
+  border-radius: 0.5rem;
+}
+h2 {
+  margin: 0 0 1rem;
+}
+small {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #a6afbd;
+  margin-bottom: 0.25rem;
+}
+</style>
